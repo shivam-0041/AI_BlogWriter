@@ -1,8 +1,10 @@
 #Startup cmds
 
-1. ./myvenv/Scripts/activate
-2. python manage.py runserver
-3. New terminal
-4. python manage.py tailwind start
-5. Start coding
-6. AdminUsername : Admin  password: admin
+1.  cd ./AI_BlogWriter/
+2.  python -m venv myvenv
+3. ./myvenv/Scripts/activate
+4. python manage.py runserver
+
+Currently Known Issues:
+-> Unable to see details on some particular blogs
+-> Loading screen not working
