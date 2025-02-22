@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block page_content %}
+
+<nav class="bg-blue-600 p-6 text-white flex justify-between">
+    <div>
+        <a href="{% url 'home' %}" class="text-4xl font-bold ">AI Notes Generator</a>
+    </div>
+
+    <div>
+        <a href="#" class="text-white hover:underline mx-4">Welcome {{ user.username }}</a>
+        <a href="all_texts" class="hover:underline mx-4">Saved Blog Posts</a>
+        <a href="login" class="hover:underline mx-4">Logout</a>
+        
+        <!-- <a href="signup" class="hover:underline text-2xl">SignUp</a> -->
+    </div>
+</nav>
+
+
+
+<div class="container mx-auto mt-10 px-6 sm:px-0">
+    <div class="max-w-3xl mx-auto bg-white p-6 m-y-4 rounded-lg shadow-md">
+        <section>
+            <h2 class="text-xl mb-4  font-semibold">All Generated Notes</h2>
+            <div class="space-y-4">
+
+                {% for article in blog_articles reversed %}
+
+                <a href="text_details/{{article.id}}/">
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold">{{article.title}}</h3>
+                        <p>{{article.content | truncatechars:80}}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+
+<footer class="text-center p-4 text-black mt-6">
+    Powered by AI
+</footer>
+
+
+{% tailwind_css %}
+{% endblock page_content %}

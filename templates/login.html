@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block page_content %}
+
+<nav class="bg-blue-600 p-4 text-white flex justify-between ">
+    <div>
+        <a href="http://127.0.0.1:8000/" class="text-4xl font-bold ">Notes By AI</a>
+    </div>
+
+    <div>
+        <!-- <a href="login" class="hover:underline text-2xl">Logout</a> -->
+        
+        <a href="/signup" class="hover:underline text-2xl">SignUp</a>
+    </div>
+</nav>
+
+
+<div class="flex items-center justify-center h-screen">
+    <div class="bg-white p-4 shadow-md rounded-lg max-w-md w-full">
+        <form class="space-y-4" action="" method="POST">
+            {% csrf_token %}
+
+            {% if error_message %}
+                <div class="align-centre text-red-700">
+                    <h2>
+                        {{ error_message }}
+                    </h2>
+                </div>
+            {% endif %}
+
+
+            <h2 class="text-xl font-semibold">Login</h2>
+            <div>
+                <label for="username" class="block mb-1 font-medium">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username...." class="w-full p-2 border rounded">
+            </div>
+            <div>
+                <label for="password" class="block mb-1 font-medium">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" class="w-full p-2 border rounded">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white rounded hover:bg-blue-700 p-2">Login</button>
+        </form>
+    </div>
+</div>
+
+{% tailwind_css %}
+{% endblock page_content %}

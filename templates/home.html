@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block page_content %}
+
+<style>
+    #draw {
+    position: fixed; /* Use fixed positioning to center the loader */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100px;
+    width: 100px;
+    border-bottom: 3px solid #2107eb;
+    box-sizing: border-box;
+    animation: drawLine 4s linear infinite;
+    z-index: 1000; /* Ensure the loader is above other elements */
+}
+    
+    #draw:before {
+      content: "";
+      position: absolute;
+      left: calc(100% + 14px);
+      bottom: -6px;
+      width: 16px;
+      height: 100px;
+      border-radius: 20px 20px 50px 50px;
+      background-repeat: no-repeat;
+      background-image: linear-gradient(#0011ff 6px, transparent 0),
+        linear-gradient(45deg, rgba(0, 0, 0, 0.02) 49%, white 51%),
+        linear-gradient(315deg, rgba(0, 0, 0, 0.02) 49%, white 51%),
+        linear-gradient( to bottom, #ffffff 10%, #2200ff 10%, #2200ff 90%, #ffffff 90% );
+      background-size: 3px 3px, 8px 8px, 8px 8px, 16px 88px;
+      background-position: center bottom, left 88px, right 88px, left top;
+      transform: rotate(25deg);
+      animation: pencilRot 4s linear infinite;
+    }
+    
+    @keyframes drawLine {
+      0%, 100% {
+        width: 0px
+      }
+    
+      45%, 55% {
+        width: 200px
+      }
+    }
+    
+    @keyframes pencilRot {
+      0%, 45% {
+        bottom: -6px;
+        left: calc(100% + 14px);
+        transform: rotate(25deg);
+      }
+    
+      55%,
+      100% {
+        bottom: -12px;
+        left: calc(100% + 16px);
+        transform: rotate(220deg);
+      }
+    }
+    
+</style>
+
+<nav class="bg-blue-600 p-6 text-white flex justify-between">
+    <div>
+        <a href="#" class="text-4xl font-bold ">Notes By AI</a>
+    </div>
+
+    <div>
+        <a href="#" class="text-white hover:underline mx-4">Welcome {{user.username}}</a>
+        <a href="all_texts" class="hover:underline mx-4">Saved Blog Posts</a>
+        <a href="login" class="hover:underline mx-4">Logout</a>
+        
+        <!-- <a href="signup" class="hover:underline text-2xl">SignUp</a> -->
+    </div>
+</nav>
+
+
+<div class="flex-grow container mx-auto mt-8 px-4 sm:px-0">
+    <div class="text-center mx-6 bg-white p-4 rounded shadow-md transition-transform transform flex flex-col">
+        <div class="text-center">
+            <h2 class="text-4xl font-semibold mb-4">Notes By AI</h2>
+            <p class="text-gray-700">Generate high quality easy to study notes from long youtube videos</p>
+        </div>
+        <br>
+
+        <div>
+            <h2 class="text-xl mb-3 font-semibold">Enter Youtube Link</h2>
+            <div class="flex space-x-4 rounded">
+                <input id="ytlink" type="url" placeholder="Paste Link here" class="flex-grow p-2 border border-blue-400">
+                <button id="generatorButton" class="border border-blue-600 bg-blue-600 text-white p-3 rounded-r-md hover:bg-blue-700 transition-colors">Generate</button>
+            </div>            
+        </div>
+
+        <!--Generated blog article-->
+        <section class="mt-8 flex-grow">
+            <h2 class="text-xl mb-4 font-semibold ">Generated Notes</h2>
+            <div id="generatedNotes" class="mt-2 text-gray-700 space-y-4">
+                <!-- section for loading circle -->
+                <div id="draw" class="hidden"></div>
+
+            </div>
+
+        </section>
+    </div>
+</div>
+<footer class="text-center p-4 text-black mt-6">
+    Powered by AI
+</footer>
+
+<script>
+    document.getElementById('generatorButton').addEventListener('click', async () => {
+        
+
+        const youtubeLink = document.getElementById('ytlink').value;
+        const blogContent = document.getElementById('generatedNotes');
+        
+        if(youtubeLink) {
+            document.getElementById('draw').style.display = 'block';
+            
+            blogContent.innerHTML = ''; // Clear previous content
+
+            const endpointUrl = '/generate_text/';
+            
+            try {
+                const response = await fetch(endpointUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ link: youtubeLink })
+                });
+
+                const data = await response.json();
+
+                blogContent.innerHTML = data.content;
+
+            } catch (error) {
+                console.error("Error occurred:", error);
+                alert("Something went wrong. Please try again later.");
+                
+            }
+            document.getElementById('draw').style.display = 'none';
+        } else {
+            alert("Please enter a YouTube link.");
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script>
+    document.getElementById('generatorButton').addEventListener('click', async () => {
+    const ytlink = document.getElementById('ytlink').value;
+    
+    const textContent = document.getElementById('generatedNotes');
+    
+
+    if (ytlink) {
+        document.getElementById('draw').style.display='block';
+        //loader.classList.remove('hidden'); // Show loader
+        // await new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         // Simulate a delay
+        //         resolve()},5000)
+        // })
+        textContent.innerHTML = ''; // Clear previous content
+
+        const endpoint = '/generate-text';
+        // console.log(endpoint);
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ link: ytlink })
+            });
+            // console.log(response);
+            const data = await response.json();
+            textContent.innerHTML = data.text; // Insert generated notes
+            //loader.classList.add('hidden'); // Hide loader
+
+        } catch (error) {
+            console.error("Error occurred:", error);
+            alert('Something went wrong. Please try again later.');
+            //loader.classList.add('hidden'); // Hide loader
+        }
+        document.getElementById('draw').style.display='none';
+    } else {
+        alert("Please enter a YouTube link");
+    }
+});
+</script> -->
+
+{% tailwind_css %}
+{% endblock page_content %}
