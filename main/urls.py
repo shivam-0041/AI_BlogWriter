@@ -27,7 +27,7 @@ urlpatterns = [
     path('login/',views.user_login,name='login'),
     path('signup/',views.user_signup,name='signup'),
     path('all_texts/',views.all_texts,name='all_texts'),
-    path('text_details/<int:pk>/',views.text_details,name='text_details'),
+    path('all_texts/text_details/<int:pk>/',views.text_details,name='text_details'),
     path('generate_text/',views.generate_text,name='generate_text'),
 
 

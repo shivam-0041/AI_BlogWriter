@@ -23,14 +23,13 @@
         <section>
             <h2 class="text-xl mb-4 font-semibold">Notes Details</h2>
             <div class="border border-gray-300 p-4 rounded-lg">
-                <h3 class="text-lg font-semibold">{{blog_articles.title}}</h3>
-                <p class="text-gray-700">{{blog_articles.content}}</p>
+                <h3 class="text-lg font-semibold">{{blog_post.title}}</h3>
+                <p class="text-gray-700">{{blog_post.content}}</p>
                 <hr class="my-4 border border-gray-300">
                 <h4 class="text-lg font-semibold">Youtube Title</h4>
-                <p class="text-gray-700">{{blog_articles.title}}</p>
-                <h4 class="text-lg font-semiboldmt-4">Yt Link</h4>
-                <a href="#" class="text-blue-600 hover:underline">{{blog_articles.link}}</a>
-
+                <p class="text-gray-700">{{blog_post.title}}</p>
+                <h4 class="text-lg font-semiboldmt-4">YouTube Link</h4>
+                <a href="{{blog_post.link}}" class="text-blue-600 hover:underline">{{blog_post.link}}</a>
             </div>
         </section>
     </div>
