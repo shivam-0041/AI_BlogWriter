@@ -6,5 +6,11 @@
 4. python manage.py runserver
 
 Currently Known Issues:
--> Unable to see details on some particular blogs
 -> Loading screen not working
+
+Required Modules:
+1. Python virtual enviroment
+2. assemblyai
+3. yt_dlp
+4. pytube #optional
+5. google.generativeai
