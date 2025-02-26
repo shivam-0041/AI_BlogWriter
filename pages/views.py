@@ -86,7 +86,7 @@ def generate_transcript(link):
     #audio = f"./media/{yt_title(link)}.mp3"
     audio=download_audio(link)
     try:
-        aai.settings.api_key = "6994c854c7e443adb2ece11805dffe2b"
+        aai.settings.api_key = "YOUR_API_KEY_HERE"
         transcriber = aai.Transcriber()
         config=aai.TranscriptionConfig(speaker_labels=True)
         transcript = transcriber.transcribe(audio,config)
@@ -98,9 +98,9 @@ def generate_transcript(link):
 def generate_note_from_transcript(transcription):
     try:
         
-        genai.configure(api_key="AIzaSyDMYQ6dYwgPfibw2IqkCsE6_yc5-BffTho")
+        genai.configure(api_key="YOUR_API_KEY_HERE")
         model = genai.GenerativeModel("gemini-1.5-flash")
-        prompt = f"Based on the following transcript from a youtube video, write a comprehensive notes, write it on base of transcript, but do not make it look like a youtube video, make it look like a proper notes so i can study for my exam, dont use bold characters or any type of highlighters keep it simple, 1 small para about each topic : \n\n {transcription}\n\nArticle:"
+        prompt = f"Based on the following transcript from a youtube video, write comprehensive notes, write it on base of transcript, but do not make it look like a youtube video, make it look like a proper notes so i can study for my exam, dont use bold characters or any type of highlighters keep it simple, 1 small para about each topic : \n\n {transcription}\n\nArticle:"
         response=model.generate_content(prompt)
         #generated_content = response.choices[0].text.strip()
         generated_content=response.text
@@ -124,8 +124,9 @@ def yt_title(link):
         info = ydl.extract_info(link, download=False)
         file_name = f"{info['title']}.mp3"
         file_name = re.sub(r'[<>:"/\\|*]', '_', file_name)
-        return os.path.join(settings.MEDIA_ROOT, file_name)
+        return file_name
     #return video title for blog title and file address to remove from dir
+    #under work
 
     
     
