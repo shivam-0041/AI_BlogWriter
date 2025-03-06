@@ -12,9 +12,8 @@ from yt_dlp import YoutubeDL
 from pytube.exceptions import PytubeError
 import re
 from .models import BlogPost
-#from dotenv import find_dotenv,load_dotenv
 import google.generativeai as genai
-#load_dotenv()
+
 
 @login_required
 def home(request):
