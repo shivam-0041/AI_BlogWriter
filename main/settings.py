@@ -104,7 +104,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'UserData',
         'USER': 'UserData_owner',
-        'PASSWORD': 'Y0psQ8zgRdTN',
+        'PASSWORD': 'USER_PASSWORD',
         'HOST': 'ep-little-frog-a7c733io.ap-southeast-2.aws.neon.tech',
         'PORT': '5432',
     }
