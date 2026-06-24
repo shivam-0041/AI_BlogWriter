@@ -85,7 +85,7 @@ def generate_transcript(link):
     #audio = f"./media/{yt_title(link)}.mp3"
     audio=download_audio(link)
     try:
-        aai.settings.api_key = "YOUR_API_KEY_HERE"
+        aai.settings.api_key = "Your AssemblyAI api key here"
         transcriber = aai.Transcriber()
         config=aai.TranscriptionConfig(speaker_labels=True)
         transcript = transcriber.transcribe(audio,config)
@@ -97,7 +97,7 @@ def generate_transcript(link):
 def generate_note_from_transcript(transcription):
     try:
         
-        genai.configure(api_key="YOUR_API_KEY_HERE")
+        genai.configure(api_key="Your Gemini api key here")
         model = genai.GenerativeModel("gemini-1.5-flash")
         prompt = f"Based on the following transcript from a youtube video, write comprehensive notes, write it on base of transcript, but do not make it look like a youtube video, make it look like a proper notes so i can study for my exam, dont use bold characters or any type of highlighters keep it simple, 1 small para about each topic : \n\n {transcription}\n\nArticle:"
         response=model.generate_content(prompt)

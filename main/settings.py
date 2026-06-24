@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-njk536r_0xr#o7(tqpyorgnc9#wte#(s!-)*mns5tcr8wx_tae'
+SECRET_KEY = 'Your Django secret key here'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -102,10 +102,10 @@ tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'UserData',
-        'USER': 'UserData_owner',
-        'PASSWORD': 'USER_PASSWORD',
-        'HOST': 'ep-little-frog-a7c733io.ap-southeast-2.aws.neon.tech',
+        'NAME': 'Your database name here',
+        'USER': 'Your database user here',
+        'PASSWORD': 'Your database password here',
+        'HOST': 'Your database host URL here',
         'PORT': '5432',
     }
 }
